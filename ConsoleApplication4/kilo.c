@@ -44,7 +44,7 @@ struct editorConfig
 	int screenrows;
 	int screencols;
 	int numrows; // 0 or 1
-	erow row;
+	erow *row;
 	struct termios orig_termios;
 };
 
@@ -187,6 +187,14 @@ int getWindowSize(int *rows, int *cols) {
 		*rows = ws.ws_row;
 		return 0;
 	}
+}
+
+/*** row operations ***/
+
+void editorAppendRow(char *s, size_t len) {
+	E.row.size = len;
+	E.row.chars = malloc(len + 1);
+
 }
 
 /*** file i/o ***/
@@ -378,7 +386,7 @@ void initEditor() {
 	E.cx = 0;
 	E.cy = 0;
 	E.numrows = 0;
-
+	E.row = NULL;
 	if (getWindowSize(&E.screenrows, &E.screencols) == -1) die("getWindowSize");
 }
 
