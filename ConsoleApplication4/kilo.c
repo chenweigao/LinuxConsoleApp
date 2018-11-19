@@ -362,6 +362,11 @@ void editorMoveCursor(int key) {
 		{
 			E.cx++;
 		}
+		else if (E.cy > 0)
+		{
+			E.cy++;
+			E.cx = 0;
+		}
 		break;
 	case ARROW_UP:
 		if (E.cy != 0)
